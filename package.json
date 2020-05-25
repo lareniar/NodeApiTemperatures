@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node -r dotenv/config index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/lareniar/NodeApiTemperatures/issues"
   },
-  "homepage": "https://github.com/lareniar/NodeApiTemperatures#readme"
+  "homepage": "https://github.com/lareniar/NodeApiTemperatures#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bluebird": "^3.7.2",
+    "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.0"
+  }
 }
