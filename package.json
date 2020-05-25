@@ -1,0 +1,19 @@
+{
+  "name": "node_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lareniar/NodeApiTemperatures.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lareniar/NodeApiTemperatures/issues"
+  },
+  "homepage": "https://github.com/lareniar/NodeApiTemperatures#readme"
+}
