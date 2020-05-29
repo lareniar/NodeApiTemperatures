@@ -6,9 +6,8 @@ async function getDiaryClimatologyJSON() {
         // con {} accedemos a la propiedad del endpoint porque este es un objeto
         // la palabra es desestructurar
         const { data: { datos } } = await axios(ENDPOINT);
-        const { data: climateData } = await axios(datos)
-        console.log(climateData);
-
+        const { data: climateData } = await axios(datos);
+        console.log(climateData)
         return climateData;
     } catch (error) {
         console.log({ error: error.message })
