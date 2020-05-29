@@ -6,66 +6,46 @@ const config = {
     port: 33060,
 };
 
+const dbSession = mysqlx.getSession(config);
 
+async function createDatabase(data) {
+    try {
+        const session = await dbSession;
+        await session.createSchema('temperatures');
+        console.log('created screma');
 
+        return session.getSchema();
+    } catch (error) {
+        console.log({ error });
+        const session = await dbSession;
+        console.log("before drop")
+        await session.dropSchema('temperatures');
+        console.log('screma droped');
 
+        await session.createSchema('temperatures');
+        console.log('created screma');
 
-
-const dbSession = mysqlx.getSession(config)
-function createDatabase(json) {
-
-    //create database if exists catch error and drop database & create
-    dbSession
-        .then(session => {
-            return session.createSchema('temperatures')
-                .then(() => {
-                    return session.getSchemas();
-                })
-        })
-        .catch(err => {
-            if (err) {
-                //drop database
-                dbSession
-                    .then(session => {
-                        return session.dropSchema('temperatures')
-                            .then(() => {
-                                return session.getSchemas();
-                            })
-                    });
-                //create database
-                dbSession
-                    .then(session => {
-                        return session.createSchema('temperatures')
-                            .then(() => {
-                                return session.getSchemas();
-                            })
-                    })
-                console.log("create")
-
-            }
-            createSchema(json);
-        });
-
-};
-
-function createSchema(json) {
-
-    dataSon = [
-        { name: "hola" },
-        { nombre: "eee" }
-    ]
-
-
-    dbSession.then(session => {
-        console.log("aaas");
-        session.getSchema('temperatures').createCollection('datas');
-        return session.getSchema('temperatures').getCollection('datas')
-            .add([{ json }])
-            .execute()
-    }).catch(err => {
-        console.log(err)
-    })
-
+        return session.getSchema();
+    } finally {
+        populateCollection(data);
+    }
 }
 
-module.exports = { createDatabase }
+async function populateCollection(data) {
+    dataSon = [{ name: 'hola' }, { nombre: 'eee' }];
+
+    try {
+        const session = await dbSession;
+        await session.getSchema('temperatures').createCollection('datas');
+
+        return session
+            .getSchema('temperatures')
+            .getCollection('datas')
+            .add([{ data }])
+            .execute();
+    } catch (error) {
+        console.log({ error });
+    }
+}
+
+module.exports = { createDatabase };
