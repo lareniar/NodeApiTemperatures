@@ -16,14 +16,14 @@ async function createDatabase(data) {
 
         return session.getSchema();
     } catch (error) {
-        console.log({ error });
+        console.log("Schema existant and we are creating again the schema", error);
         const session = await dbSession;
-        console.log("before drop")
+        // console.log("before drop")
         await session.dropSchema('temperatures');
-        console.log('screma droped');
+        // console.log('screma droped');
 
         await session.createSchema('temperatures');
-        console.log('created screma');
+        // console.log('created screma');
 
         return session.getSchema();
     } finally {
